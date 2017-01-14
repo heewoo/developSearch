@@ -23,7 +23,7 @@ const server = new Hapi.Server({
 
 server.connection({
     port: 3000,
-    host: '0.0.0.0',
+    host: 'localhost',
     labels: ['develop search']
 });
 
