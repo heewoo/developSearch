@@ -1,0 +1,54 @@
+<div id="content">
+    <div class="container">
+        <div class="jumbotron">
+            <form class="form-inline" method="GET" action="/search">
+                <div class="input-group input-group-lg search-panel">
+                    <input class="form-control input-lg " name="q" type="text" placeholder="검색어를 입력하세요"
+                           value="<%= keyword %>"
+                           style="width:70%">
+                    <a href="javascript:getSearch();" class="btn btn-lg btn-info search-panel-button">
+            <span class="glyphicon glyphicon-search">
+              <span class="search-text">Search</span>
+            </span>
+                    </a>
+                </div>
+            </form>
+            <div class="form-inline search-info">
+                <h6><span>검색결과 약 <%= total %>개 ( <%= took %> 초)</span></h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row marketing">
+    <% if(total > 0){ %>
+    <% for(var i = 0; i < contents.length; i++) { %>
+    <div class="col-lg-12" style=" padding-bottom:30px;">
+        <h5>
+            <img src=" http://www.google.com/s2/favicons?domain=<%= contents[i].fields.host %>"> <%= contents[i].fields.host %>
+        </h5>
+        <a href="#" onclick="getSiteMove('<%= contents[i].fields.url %>')">
+            <h3><%= contents[i].fields.title %></h3>
+        </a>
+        <p>
+      <span content="searchContent<%= i %>">
+        <%= contents[i].fields.content.toString().substring(0, 200) %>
+      </span>
+        </p>
+    </div>
+    <% } %>
+    <% }else{ %>
+    <div class="col-lg-12">
+        <span><h4>안타깝게 해당 검색어와 일치하는 내용을 찾을 수 없습니다.</h4></span>
+        <p><span>Sorry...,There is no match for this query.</span></p>
+    </div>
+    <% } %>
+</div>
+
+<script language="JavaScript">
+
+    function getSiteMove(url) {
+        window.open(url);
+    }
+
+</script>
