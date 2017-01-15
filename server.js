@@ -99,6 +99,17 @@ server.register([Auth, Vision, Inert], function (err) {
         }
     });
 
+    server.route({
+        method: 'GET', path: '/sitemap/{file*}', config: {auth: false},
+        handler: {
+            directory: {
+                path: '/home/heewoo/sitemap',
+                listing: true,
+                index: true
+            }
+        }
+    });
+
     server.route(rootRouter.rootHandler);
 
     // 404 redirect
