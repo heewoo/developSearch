@@ -8,7 +8,7 @@ exports.index = {
             return reply.redirect('/index');
         }
         reply.view('contact', {
-            title: 'views/index.js | Hapi ' + request.server.version,
+            title: '개서치 - Contact',
             message: 'Index - Hello World!',
             dirname: 'contact',
             img_path: '../../public/img/',

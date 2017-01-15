@@ -3,6 +3,7 @@ var client = new Elasticsearch.Client({
     host: 's1:9200',
     log: 'info'
 });
+var keywordTitle = ' | 개서치 검색 결과';
 
 exports.index = {
     auth: {
@@ -14,7 +15,7 @@ exports.index = {
             return reply.redirect('/index');
         }
         reply.view('index', {
-            title: '개서치',
+            title: '개서치 - Home',
             message: 'Index - Hello World!',
             dirname: 'index',
             description: '개발 검색사이트'
@@ -85,7 +86,7 @@ exports.search = {
                 content.push(resultHits[i]);
             }
             return reply.view('search', {
-                title: 'search | Hapi ' + request.server.version,
+                title: keyword + keywordTitle,
                 keyword: keyword,
                 contents: content,
                 total: resp.hits.total,
@@ -134,7 +135,7 @@ exports.page = {
                 title = resultHits[0].fields.title;
 
                 return reply.view('search', {
-                    title: title + '| search',
+                    title: title + keywordTitle,
                     keyword: keyword,
                     anchor: anchor,
                     contents: content,
