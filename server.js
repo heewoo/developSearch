@@ -110,6 +110,18 @@ server.register([Auth, Vision, Inert], function (err) {
         }
     });
 
+    server.route({
+        method: 'GET', path: '/{file*}', config: {auth: false},
+        handler: {
+            directory: {
+                path: __dirname + '/public',
+                listing: true,
+                index: true
+            }
+        }
+    });
+
+
     server.route(rootRouter.rootHandler);
 
     // 404 redirect
