@@ -3,7 +3,7 @@ var client = new Elasticsearch.Client({
     host: 's1:9200',
     log: 'info'
 });
-var keywordTitle = ' | 개서치 검색 결과';
+var keywordTitle = ' | developSearch result';
 
 exports.index = {
     auth: {
@@ -15,10 +15,10 @@ exports.index = {
             return reply.redirect('/index');
         }
         reply.view('index', {
-            title: '개서치 - Home',
+            title: 'developSearch - Home',
             message: 'Index - Hello World!',
             dirname: 'index',
-            description: '개발 검색사이트'
+            description: 'develop search site'
         });
     }
 };
@@ -92,7 +92,7 @@ exports.search = {
                 total: resp.hits.total,
                 took: resp.took / 1000,
                 dirname: 'index',
-                description: '개발 검색사이트'
+                description: 'develop search site'
             });
         }, function (err) {
             console.trace(err.message);
@@ -131,8 +131,8 @@ exports.page = {
                     resultHits[0].fields.url = resultHits[0].fields.url.toString().replace('/feed', '');
                 }
 
-                content.push(resultHits[0]);
                 title = resultHits[0].fields.title;
+                content.push(resultHits[0]);
 
                 return reply.view('search', {
                     title: title + keywordTitle,
@@ -144,6 +144,8 @@ exports.page = {
                     dirname: 'index',
                     description: resultHits[0].fields.content.toString().substring(0, 200)
                 });
+
+
             } else {
                 var err_msg = "Not find data !";
                 return reply.view('search', {
