@@ -46,6 +46,7 @@
 </head>
 <body>
 <div class="container">
+
     <div class="header">
         <nav>
             <ul class="nav nav-pills pull-right">
@@ -56,11 +57,15 @@
         </nav>
         <h3 class="text-muted"><a href="../">개서치</a></h3>
     </div>
+
+
     <!-- content -->
     <%- content %>
+
     <footer class="footer">
         <p>&copy; develop search 2017</p>
     </footer>
+
 </div> <!-- /container -->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../public/js/ie10-viewport-bug-workaround.js"></script>
@@ -68,7 +73,9 @@
 <script language="JavaScript">
     menuActive("<%= dirname %>");
     function getSearch() {
-        location.href = "./search?q=" + $("input[name=q]").val();
+        if($("input[name=q]").val().trim()!='') {
+            location.href = "./search?q=" + $("input[name=q]").val();
+        }
     }
 </script>
 </body>
