@@ -8,11 +8,11 @@ exports.index = {
             return reply.redirect('/index');
         }
         reply.view('about', {
-            title: '개서치 - About',
+            title: 'developSearch - About',
             message: 'Index - Hello World!',
             dirname: 'about',
             img_path: '../../public/img/',
-            description: '개서치 About'
+            description: 'developSearch About'
         });
     }
 };
