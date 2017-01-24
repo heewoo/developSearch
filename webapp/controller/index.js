@@ -147,7 +147,7 @@ exports.page = {
 
 
             } else {
-                var err_msg = "Not find data !";
+                var err_msg = "Enter keyword";
                 return reply.view('search', {
                     title: err_msg + '| search',
                     keyword: err_msg,
