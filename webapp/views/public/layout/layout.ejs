@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Subject" content="develop search">
-    <meta name="Title" content="develop search">
+    <meta name="Title" content="<%= title %>">
     <meta name="keyword" content="<%= title %>">
     <meta name="author" content="develop_search">
     <meta name="description" content="<%= description %>">
@@ -32,6 +32,14 @@
     <link href="../public/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="../public/css/jumbotron-narrow.css" rel="stylesheet">
+
+
+
+    <link href="../public/css/font-awesome.css" rel="stylesheet">
+    <link href="../public/css/docs.css" rel="stylesheet" >
+    <link href="../public/css/bootstrap-social.css" rel="stylesheet" >
+
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -45,7 +53,7 @@
     <!-- common script -->
     <script src="../public/js/common.js"></script>
 
-    <!-- ga code -->
+    <!-- ga code-->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -70,7 +78,6 @@
         <h3 class="text-muted"><a href="../">D.S</a></h3>
     </div>
 
-
     <!-- content -->
     <%- content %>
 
@@ -81,6 +88,8 @@
 </div> <!-- /container -->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../public/js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="../public/js/docs.js"></script>
 
 <script language="JavaScript">
     menuActive("<%= dirname %>");

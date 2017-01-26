@@ -15,7 +15,7 @@ exports.index = {
             return reply.redirect('/index');
         }
         reply.view('index', {
-            title: 'developSearch - Home',
+            title: 'developSearch - Home ',
             message: 'Index - Hello World!',
             dirname: 'index',
             description: 'develop search site'

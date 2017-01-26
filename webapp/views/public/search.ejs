@@ -44,6 +44,23 @@
     <% } %>
 </div>
 
+<div class="footer-social">
+    <!-- facebook -->
+    <a class="btn btn-social-icon btn-lg btn-facebook" href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u='
++encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog',
+ 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"
+       alt="Share on Facebook"><span class="fa fa-facebook"></span></a>
+    <!-- tweet -->
+    <a class="btn btn-social-icon btn-lg btn-twitter" href="#" onclick="javascript:window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.URL)+'%20-%20'+encodeURIComponent(document.title), 'twittersharedialog',
+ 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"
+       alt="Share on Twitter"><span class="fa fa-twitter"></span></a>
+    <!-- google+ -->
+    <a class="btn btn-social-icon btn-lg btn-google" href="#" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(),
+     'googleplussharedialog','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=350,width=600');return false;"
+       target="_blank" alt="Share on Google+"><i class="fa fa-google"></i></a>
+</div>
+
+
 <script language="JavaScript">
     function getSiteMove(url) {
         window.open(url);
