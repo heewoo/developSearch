@@ -7,7 +7,10 @@ exports.rootHandler = [
     /* index */
     {method: 'GET', path: '/', config: Index.index},
     {method: 'GET', path: '/search', config: Index.search},
-    {method: 'GET', path: '/searchPage', config: Index.page},
+    {method: 'GET', path: '/searchPage', config: Index.searchPage},
+    {method: 'POST', path: '/searchMore', config: Index.searchMore},
+
+    /* index total Count*/
     {method: 'GET', path: '/totalCnt', config: Index.totalCnt},
 
     /* about */

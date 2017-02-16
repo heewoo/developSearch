@@ -28,7 +28,7 @@
             <img src=" http://www.google.com/s2/favicons?domain=<%= contents[i].fields.host %>"> <%= contents[i].fields.host %>
         </h5>
         <a href="#" rel="nofollow" onclick="getSiteMove('<%= contents[i].fields.url %>')">
-            <h3><%= contents[i].fields.title %></h3>
+            <h3><%= contents[i].fields.title %> </h3>
         </a>
         <p>
       <span content="searchContent<%= i %>">
@@ -60,9 +60,3 @@
        target="_blank" alt="Share on Google+"><i class="fa fa-google"></i></a>
 </div>
 
-
-<script language="JavaScript">
-    function getSiteMove(url) {
-        window.open(url);
-    }
-</script>

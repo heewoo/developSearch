@@ -93,6 +93,7 @@ exports.search = {
                 took: resp.took / 1000,
                 dirname: 'index',
                 description: 'develop search site'
+
             });
         }, function (err) {
             console.trace(err.message);
@@ -102,7 +103,7 @@ exports.search = {
 };
 
 
-exports.page = {
+exports.searchPage = {
     auth: {
         mode: 'try',
         strategy: 'session'
@@ -124,17 +125,17 @@ exports.page = {
             const content = new Array();
             var title = "";
             var anchor = "";
-
             if (resp.hits.total > 0) {
                 var t = resultHits[0].fields.url.toString().search("/feed");
                 if (t) {
                     resultHits[0].fields.url = resultHits[0].fields.url.toString().replace('/feed', '');
                 }
-
                 title = resultHits[0].fields.title;
                 content.push(resultHits[0]);
 
-                return reply.view('search', {
+
+
+                return reply.view('searchPage', {
                     title: title + keywordTitle,
                     keyword: keyword,
                     anchor: anchor,
@@ -148,7 +149,7 @@ exports.page = {
 
             } else {
                 var err_msg = "Enter keyword";
-                return reply.view('search', {
+                return reply.view('searchPage', {
                     title: err_msg + '| search',
                     keyword: err_msg,
                     anchor: err_msg,
@@ -165,4 +166,72 @@ exports.page = {
 
     }
 };
+
+exports.searchMore = {
+    auth: {
+        mode: 'try',
+        strategy: 'session'
+    },
+    handler: function (request, reply) {
+        const keyword = request.payload.q;
+
+        client.search({
+            index: 'nutch',
+            type: 'doc',
+            body: {
+                query: {
+                    multi_match: {
+                        query: keyword,
+                        fields: ["title", "content"],
+                        tie_breaker: 0.5
+                    }
+                },
+                fields: ["host", "id", "title", "url", "content", "anchor"],
+                from: 0,
+                size: 50,
+            }
+        }).then(function (resp) {
+            const resultHits = resp.hits.hits;
+            const content = new Array();
+            var title = "";
+            var anchor = "";
+            if (resp.hits.total > 0) {
+                for(var i in resultHits) {
+                    var t = resultHits[i].fields.url.toString().search("/feed");
+                    if (t) {
+                        resultHits[i].fields.url = resultHits[i].fields.url.toString().replace('/feed', '');
+                    }
+                    title = resultHits[i].fields.title;
+                    content.push(resultHits[i]);
+                }
+                 reply({
+                    title: title + keywordTitle,
+                    keyword: keyword,
+                    anchor: anchor,
+                    contents: content,
+                    total: resp.hits.total,
+                    took: resp.took / 1000,
+                    dirname: 'index',
+                    description: resultHits[0].fields.content.toString().substring(0, 200)
+                });
+            } else {
+                var err_msg = "Enter keyword";
+                 reply( {
+                    title: err_msg + '| search',
+                    keyword: err_msg,
+                    anchor: err_msg,
+                    contents: err_msg,
+                    total: resp.hits.total,
+                    took: resp.took / 1000,
+                    dirname: 'index',
+                    description: err_msg
+                });
+            }
+        }, function (err) {
+            console.trace(err.message);
+        });
+
+    }
+};
+
 
