@@ -109,6 +109,7 @@ exports.searchPage = {
         strategy: 'session'
     },
     handler: function (request, reply) {
+
         const params = request.query;
         const keyword = params.q;
         client.search({
@@ -165,6 +166,7 @@ exports.searchPage = {
         });
 
     }
+
 };
 
 exports.searchMore = {
