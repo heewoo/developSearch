@@ -31,6 +31,61 @@ server.connection({
 // logger module //
 Logger.logging(server, Good);
 
+
+const PageOption = {
+    query: {
+        page: {
+            name: 'page', // The page parameter will now be called the_page
+            default:1
+        },
+        limit: {
+            name: 'rowLimit', // The limit will now be called per_page
+            default: 10       // The default value will be 10
+        }
+    },
+    meta: {
+        location: 'body', // The metadata will be put in the response body
+        name: 'metadata', // The meta object will be called metadata
+        count: {
+            active: true,
+            name: 'count'
+        },
+        pageCount: {
+            name: 'totalPages'
+        },
+        previous: {
+            active: true,
+            name: 'previous'
+        },
+        next: {
+            active: true,
+            name: 'next'
+        },
+        self: {
+            active: true, // Will not generate the self link
+            name: 'self'
+        },
+        first: {
+            active: true, // Will not generate the first link
+            name: 'first'
+        },
+        last: {
+            active: true, // Will not generate the last link
+            name: 'last'
+        }
+    },
+    routes: {
+        include: ['/contentList'],
+    }
+};
+
+// page option //
+server.register({register: require('hapi-pagination'), options: PageOption}, function (err) {
+    if (err)
+    throw err;
+});
+
+
 // route register //
 server.register([Auth, Vision, Inert], function (err) {
 

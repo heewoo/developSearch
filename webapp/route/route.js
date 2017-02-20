@@ -1,6 +1,7 @@
 var Index = require('../controller/index');
 var About = require('../controller/about');
 var Contact = require('../controller/contact');
+var Content = require('../controller/content');
 
 exports.rootHandler = [
 
@@ -18,5 +19,11 @@ exports.rootHandler = [
 
     /* contact */
     {method: 'GET', path: '/contact', config: Contact.index},
+
+    /* content*/
+    {method: 'GET', path: '/content', config: Content.index},
+
+    /* content List*/
+    {method: 'GET', path: '/contentList', config: Content.contentList},
 
 ];

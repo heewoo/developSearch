@@ -1,0 +1,89 @@
+<div id="content">
+    <div class="container">
+        <div class="jumbotron">
+            <form class="form-inline" method="GET" action="/search">
+                <div class="input-group input-group-lg search-panel">
+                    <input class="form-control input-lg " name="q" type="text" placeholder="Enter keyword"
+                           value=""
+                           style="width:70%">
+                    <a href="javascript:getSearch();" class="btn btn-lg btn-info search-panel-button">
+            <span class="glyphicon glyphicon-search">
+              <span class="search-text">Search</span>
+            </span>
+                    </a>
+                </div>
+            </form>
+            <div class="form-inline search-info">
+                <h6></h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row marketing">
+    <div id="contentList"></div>
+    <p id="noData"></p>
+</div>
+
+<div class="light">
+    <div class="paginate wrapper">
+        <ul>
+            <li id="paging"></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    var pageTc = "";
+    function pageInit(pageNum) {
+        $("#contentList").empty();
+        $.ajax({
+            type: "get",
+            url: '../contentList?tc='+pageTc+'&page=' + pageNum ,
+            success: function (data) {
+                if (pageTc < 1) {
+                    $("#noData").text("데이터가 없습니다");
+                } else {
+                    var result = data.results;
+                    var pageMeta = data.metadata;
+
+                        for(var i=0;i<result.length;i++) {
+                            var url  = result[i]._id;
+                            $("#contentList").append(""
+                                    + "<div class='col-lg-12' style='padding-bottom:30px;'>"
+                                    + "<h5><img src='http://www.google.com/s2/favicons?domain=" +result[i].fields.host + "'>" + result[i].fields.host + "</h5>"
+                                    + "<a onclick=getDsMove("+ "'"+url+"'"+")> <h3>" + result[i].fields.title + "</h3> </a> <p>"
+                                    + "<span content='searchContentList'" + i + ">" + result[i].fields.content.toString().substring(0, 200) + "</span> </p> </div>");
+                        }
+
+                        $("#paging").paging({
+                            current: pageNum,
+                            max: pageMeta.totalPages,
+                            itemCurrent: "active"
+                        });
+                }
+            }
+        });
+    }
+
+    function totalCnt() {
+        $.ajax({
+            type: "GET",
+            url: '../totalCnt',
+            async: false,
+            success: function (data) {
+                if(data.result) {
+                    pageTc =  data.count;
+                    pageInit(0);
+                }else{
+                    return 0;
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        totalCnt()
+    });
+</script>

@@ -3,7 +3,7 @@ var client = new Elasticsearch.Client({
     host: 's1:9200',
     log: 'info'
 });
-var keywordTitle = ' | developSearch result';
+var keywordTitle = ' | developSearch';
 
 exports.index = {
     auth: {
@@ -29,7 +29,9 @@ exports.totalCnt = {
         strategy: 'session'
     },
     handler: function (req, reply) {
-        client.count(function (error, response, status) {
+        client.count({
+            index: 'nutch'
+        },function (error, response, status) {
             reply({result: true, count: response.count});
         });
     }
@@ -235,5 +237,6 @@ exports.searchMore = {
 
     }
 };
+
 
 

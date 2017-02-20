@@ -7,3 +7,8 @@ var menuActive = function(dirname) {
 function getSiteMove(url) {
     window.open(url.trim());
 }
+
+/* ds move*/
+function getDsMove(q) {
+    location.href='../searchPage?q='+q;
+}
