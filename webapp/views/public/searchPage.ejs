@@ -14,7 +14,7 @@
                     $("#searchMore").append(""
                             +"<div class='col-lg-12' style='padding-bottom:30px;'>"
                             +"<h5><img src='http://www.google.com/s2/favicons?domain="+result[i].fields.host+"'>"+ result[i].fields.host +"</h5>"
-                            +"<a href='#' rel='nofollow' onclick=getSiteMove("+ "'"+url+"'"+");>"
+                            +"<a href='#'  onclick=getSiteMove("+ "'"+url+"'"+");>"
                             +"<h3>"+result[i].fields.title+"</h3></a><p>"
                             +"<span>"+result[i].fields.content.toString().substring(0, 200) +"</span></p></div>"
                     );
@@ -40,7 +40,7 @@
         <h5>
             <img src=" http://www.google.com/s2/favicons?domain=<%= contents[i].fields.host %>"> <%= contents[i].fields.host %>
         </h5>
-        <a href="#" rel="nofollow" onclick="getSiteMove('<%= contents[i].fields.url %>')">
+        <a href="#"  onclick="getSiteMove('<%= contents[i].fields.url %>')">
             <h3><%= contents[i].fields.title %> %></h3>
         </a>
         <p>
