@@ -1,6 +1,6 @@
 var Mongoose = require('mongoose');
 
-Mongoose.connect('mongodb://storage:27017/local');
+Mongoose.connect('mongodb://storage:27017/host');
 
 var db = Mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));

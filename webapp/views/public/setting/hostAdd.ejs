@@ -1,0 +1,61 @@
+<div id="content">
+    <div class="container">
+        <div class="jumbotron">
+
+            <form class="form-inline">
+                <div class="input-group input-group-lg search-panel">
+                    <input class="form-control input-lg " name="host" type="text" placeholder="Enter your blog Host"
+                           style="width:70%">
+                    <a href="javascript:setHost();" class="btn btn-lg btn-info search-panel-button">
+                        <span class="glyphicons glyphicons-plus">
+                          <span class="search-text">Add</span>
+                        </span>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+(host list view)
+
+
+<script>
+
+    function setHost(){
+        if(getHostChk()!=null) {
+            var host = $("input[name=host]").val();
+
+            if (host == "") {
+                alert("empty host...");
+                return false;
+            }
+
+            $.ajax({
+                type: "post",
+                data: {
+                    host: host},
+                url: '../hostInsert',
+                success: function (data) {
+                    if (data.result) {
+                        alert(data.resultMsg);
+                    }
+                }
+            });
+
+        }else{
+            alert("host check error... ");
+        }
+    }
+
+    function getHostChk(){
+        var aa = $("input[name=host]").val();
+        var patt =  /^(http\:\/\/)?((\w+)[.])+(asia|biz|cc|cn|com|de|eu|in|info|jobs|jp|kr|mobi|mx|name|net|nz|org|travel|tv|tw|uk|us)(\/(\w*))*$/gi;
+        var result = (aa.match(patt));
+        return result;
+    }
+
+</script>

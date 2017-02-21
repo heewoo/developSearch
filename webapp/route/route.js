@@ -2,6 +2,7 @@ var Index = require('../controller/index');
 var About = require('../controller/about');
 var Contact = require('../controller/contact');
 var Content = require('../controller/content');
+var Host = require('../controller/host');
 
 exports.rootHandler = [
 
@@ -25,5 +26,10 @@ exports.rootHandler = [
 
     /* content List*/
     {method: 'GET', path: '/contentList', config: Content.contentList},
+
+    /* host Add Page*/
+    {method: 'GET', path: '/hostAdd', config: Host.index},
+    {method: 'POST', path: '/hostInsert', config: Host.insert},
+
 
 ];
