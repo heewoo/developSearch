@@ -190,6 +190,11 @@ exports.searchMore = {
                         tie_breaker: 0.5
                     }
                 },
+                sort: {
+                    _score: {
+                        order: "desc"
+                    }
+                },
                 fields: ["host", "id", "title", "url", "content", "anchor"],
                 from: 0,
                 size: 50,

@@ -20,7 +20,7 @@ exports.index = {
 };
 
 
-exports.insert = {
+exports.hostInsert = {
     auth: {
         mode: 'try',
         strategy: 'session'
@@ -29,38 +29,16 @@ exports.insert = {
         if (request.auth.isAuthenticated) {
             return reply.redirect('/index');
         }
-
-        var hostInfo = new hostModel(request.payload);
-
-
-        hostInfo.save(function (err) {
-            if (err) {
-                console.log(err);
-                reply({result:false,resultMsg:"error"});
-            }
-            else {
-                reply({result:true,resultMsg:"success"})
-            }
-        });
-
-
-
-        console.log(hostInfo);
-
-        //count //
-        // reply({result: false, msg: "error"});
-
+        // var hostInfo = new hostModel(request.payload);
         // hostInfo.save(function (err) {
         //     if (err) {
         //         console.log(err);
-        //         reply({resultMsg: false, msg: "error"});
+        //         reply({result:false,resultMsg:"error"});
         //     }
         //     else {
-        //         reply({resultMsg: true, msg: "success"});
+        //         reply({result:true,resultMsg:"success"})
         //     }
         // });
-
-
 
     }
 };

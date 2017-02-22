@@ -1,5 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /mua-ban-xe/
 
 Sitemap: http://developsearch.com/sitemap/sitemap-1.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-2.xml

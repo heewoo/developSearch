@@ -29,7 +29,7 @@ exports.rootHandler = [
 
     /* host Add Page*/
     {method: 'GET', path: '/hostAdd', config: Host.index},
-    {method: 'POST', path: '/hostInsert', config: Host.insert},
+    {method: 'POST', path: '/hostInsert', config: Host.hostInsert},
 
 
 ];

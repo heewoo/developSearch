@@ -32,19 +32,23 @@
             if (host == "") {
                 alert("empty host...");
                 return false;
-            }
+            }else {
 
-            $.ajax({
-                type: "post",
-                data: {
-                    host: host},
-                url: '../hostInsert',
-                success: function (data) {
-                    if (data.result) {
-                        alert(data.resultMsg);
+                $.ajax({
+                    type: "post",
+                    data: {
+                        host: host
+                    },
+                    url: '../hostInsert',
+                    success: function (data) {
+                        console.log(data);
+
+                        if (data.result) {
+                            alert(data.resultMsg);
+                        }
                     }
-                }
-            });
+                });
+            }
 
         }else{
             alert("host check error... ");
