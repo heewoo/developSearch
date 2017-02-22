@@ -14,4 +14,4 @@ var userSchema = new Mongoose.Schema({
 
 
 
-module.exports = Mongoose.model('Host', userSchema, 'Hosts');
+module.exports = Mongoose.model('Host', userSchema, 'Host');

@@ -1,4 +1,5 @@
 var Mongoose = require('mongoose');
+Mongoose.Promise = global.Promise;
 
 Mongoose.connect('mongodb://storage:27017/host');
 
