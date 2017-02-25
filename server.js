@@ -167,7 +167,7 @@ server.register([Auth, Vision, Inert], function (err) {
 
     server.route({
         method: 'GET', path: '/sitemap-w/{file*}', config: {auth: false},
-        handler: {npm
+        handler: {
             directory: {
                 path: '/home/heewoo/sitemap-w',
                 listing: true,
