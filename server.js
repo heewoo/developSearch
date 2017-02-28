@@ -40,7 +40,7 @@ const PageOption = {
         },
         limit: {
             name: 'rowLimit', // The limit will now be called per_page
-            default: 10       // The default value will be 10
+            default:30       // The default value will be 10
         }
     },
     meta: {
@@ -75,7 +75,7 @@ const PageOption = {
         }
     },
     routes: {
-        include: ['/contentList'],
+        include: ['/contentList','/hostList'],
     }
 };
 

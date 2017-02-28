@@ -30,8 +30,10 @@ exports.rootHandler = [
     /* host Add Page*/
     {method: 'GET', path: '/hostAdd', config: Host.index},
     {method: 'GET', path: '/hostList', config: Host.hostList},
+    {method: 'GET', path: '/totalHostCnt', config: Host.totalHostCnt},
     {method: 'POST', path: '/hostCount', config: Host.hostCount},
     {method: 'POST', path: '/hostInsert', config: Host.hostInsert},
+
 
 
 
