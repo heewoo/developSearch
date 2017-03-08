@@ -5,6 +5,10 @@ var userSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    tableReginon:{
+        type: String,
+        required: true
+    },
     created_at: {
         type: Date,
         required: true,

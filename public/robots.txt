@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /mua-ban-xe/
+Host: developsearch.com
 
 Sitemap: http://developsearch.com/sitemap/sitemap-1.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-2.xml
@@ -23,3 +24,31 @@ Sitemap: http://developsearch.com/sitemap/sitemap-18.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-19.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-20.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-21.xml
+
+
+User-agent: *
+Disallow: /mua-ban-xe/
+Host: www.developsearch.com
+
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-1.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-2.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-3.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-4.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-5.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-6.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-7.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-8.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-9.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-10.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-11.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-11.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-12.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-13.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-14.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-15.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-16.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-17.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-18.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-19.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-20.xml
+Sitemap: http://www.developsearch.com/sitemap-w/sitemap-21.xml

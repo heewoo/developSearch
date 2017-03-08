@@ -3,8 +3,24 @@
         <div class="jumbotron">
             <form class="form-inline">
                 <div class="input-group input-group-lg search-panel">
-                    <input class="form-control input-lg " name="host" type="text" placeholder="Enter your blog Host"
-                           style="width:70%">
+                    <!-- hbase table reginon -->
+                    <!-- option value region start potin -->
+                    <select class="form-control input-lg" style="width:70%" name="tableReginon">
+                        <option value="">HBASE Table Reginon Select</option>
+                        <option value="hbase11">HBASE : 11 ~ 20</option>
+                        <option value="hbase21">HBASE : 21 ~ 30</option>
+                        <option value="hbase31">HBASE : 31 ~ 40</option>
+                        <option value="hbase101">HBASE : 101 ~ 110</option>
+                        <option value="hbase111">HBASE : 111 ~ 120</option>
+                        <option value="hbase121">HBASE : 121 ~ 130</option>
+                        <option value="hbase131">HBASE : 131 ~ 140</option>
+                        <option value="hbase141">HBASE : 141 ~ 150</option>
+                        <option value="hbase151">HBASE : 151 ~ 160</option>
+                        <option value="hbase161">HBASE : 161 ~ 170</option>
+                        <option value="op-1">HBASE : op-1</option>
+                    </select>
+
+                    <input class="form-control input-lg" name="host" type="text" placeholder="Enter your blog Host" style="width:70%">
                     <a href="javascript:getHostCount();" class="btn btn-lg btn-info search-panel-button">
                         <span class="glyphicons glyphicons-plus">
                           <span class="search-text">Add</span>
@@ -12,27 +28,41 @@
                     </a>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
-
 
 
 <div class="jumbotron">
     <h3>host list</h3>
     <div id="hostList"></div>
 </div>
+<div class="light">
+    <div class="paginate wrapper">
+        <ul>
+            <li id="paging"></li>
+        </ul>
+    </div>
+</div>
 
 
 <script>
+    var pageTc = "";
+
     function getHostCount(){
         if(getHostChk()!=null) {
             var host = $("input[name=host]").val();
+            var tableReginon = $("select[name=tableReginon]").val();
+
             if (host == "") {
                 alert("empty host...");
                 return false;
-            }else {
+            }
+            else if (tableReginon == ""){
+                alert("choose Hbase Table Reginon...");
+                return false;
+            }
+            else {
                 $.ajax({
                     url: '../hostCount',
                     type: "post",
@@ -41,7 +71,7 @@
                     success: function (data) {
                         if (data.result) {
                             if(data.resultCnt == 0) {
-                                setHost(host);
+                                setHost(host,tableReginon);
                             }else{
                                 alert("error - duplicate host");
                             }
@@ -57,34 +87,42 @@
         }
     }
 
-    function setHost(host){
+    function setHost(host,tableReginon){
         $.ajax({
             url: '../hostInsert',
             type: "post",
-            data: {host: host},
+            data: {host: host, tableReginon:tableReginon},
             async: false,
             success: function (data) {
                 alert(data.resultMsg);
+                $("#hostList").empty();
+                $("select[name=tableReginon] option").eq(0).attr("selected", "selected");
+                $("input[name=host]").val("");
+                getHostList();
             }
         });
     }
 
     function getHostChk(){
         var aa = $("input[name=host]").val();
-        var patt =  /^(http\:\/\/)?((\w+)[.])+(asia|biz|cc|cn|com|de|eu|in|info|jobs|jp|kr|mobi|mx|name|net|nz|org|travel|tv|tw|uk|us)(\/(\w*))*$/gi;
+        var patt =  /^(https?\:\/\/)?((\w+)[.])+(asia|biz|cc|cn|com|de|eu|in|info|jobs|jp|kr|mobi|mx|name|net|nz|org|travel|tv|tw|uk|us|io|me|org|co.kr|pe.kr|md)(\/(\w*))*$/gi;
         var result = (aa.match(patt));
         return result;
     }
 
 
-    function getHostList(){
+    function pageInit(pageNum){
+
         $.ajax({
-            url: '../hostList',
+            url: '../hostList?tc='+pageTc+'&page=' + pageNum ,
             type: "get",
             async: false,
             success: function (data) {
-                if (data.result) {
-                    var d = data.resultList;
+
+                $("#hostList").empty();
+
+                if (data.results.length>0) {
+                    var d = data.results;
                     if(d.length>0) {
                         for (var i = 0; i < d.length; i++) {
                             $("#hostList").append("<span>" + d[i].host + "</span><p>");
@@ -93,13 +131,36 @@
                         $("#hostList").append("<span> empty host list </span><p>");
                     }
 
+                    $("#paging").paging({
+                        current: pageNum,
+                        max: data.metadata.totalPages,
+                        itemCurrent: "active"
+                    })
+
+                }
+            }
+        });
+    }
+
+    function totalHostCnt() {
+        $.ajax({
+            url: '../hostCount',
+            type: "post",
+            data: {host: ""},
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    pageTc = data.resultCnt;
+                    pageInit(1);
+                }else{
+                    alert("error - host Cnt");
                 }
             }
         });
     }
 
     $("document").ready(function(){
-        getHostList();
+        totalHostCnt();
     });
 
 </script>

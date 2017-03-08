@@ -31,15 +31,26 @@ exports.hostList = {
         if (request.auth.isAuthenticated) {
             return reply.redirect('/index');
         }
-        hostModel.find({},function (err,list) {
-            if (err) {
-                console.log(err);
-                reply({result:false,resultMsg:"error"});
-            }
-            else {
-                reply({result:true,resultMsg:"success",resultList:list})
-            }
-        });
+
+
+        var tc = request.query.tc;
+        var pageNum = (request.query.page) * 10;
+        var limit = request.query.rowLimit;
+
+
+        hostModel.find({}).sort({created_at:-1})
+            .skip(pageNum)
+            .limit(limit)
+            .exec(function(err,list){
+                if (err) {
+                    console.log(err);
+                    reply({result:false,resultMsg:"error"});
+                }
+                else {
+                    reply({result:true,resultMsg:"success",results:list,totalCount: tc})
+                }
+            });
+
 
     }
 };
@@ -54,17 +65,28 @@ exports.hostCount = {
             return reply.redirect('/index');
         }
         var hostInfo = new hostModel(request.payload);
-        hostModel.count({
-            host : hostInfo.host
-        },function (err,cnt) {
-            if (err) {
-                console.log(err);
-                reply({result:false,resultMsg:"error"});
-            }
-            else {
-                reply({result:true,resultMsg:"success",resultCnt:cnt})
-            }
-        });
+
+        if(request.payload.host==""){
+            hostModel.count({}, function (err, cnt) {
+                if (err) {
+                    console.log(err);
+                    reply({result: false, resultMsg: "error"});
+                }
+                else {
+                    reply({result: true, resultMsg: "success", resultCnt: cnt})
+                }
+            });
+        }else {
+            hostModel.count({host: hostInfo.host}, function (err, cnt) {
+                if (err) {
+                    console.log(err);
+                    reply({result: false, resultMsg: "error"});
+                }
+                else {
+                    reply({result: true, resultMsg: "success", resultCnt: cnt})
+                }
+            });
+        }
 
     }
 };
@@ -92,7 +114,19 @@ exports.hostInsert = {
     }
 };
 
-
+exports.totalHostCnt = {
+    auth: {
+        mode: 'try',
+        strategy: 'session'
+    },
+    handler: function (req, reply) {
+        client.count({
+            index: 'nutch'
+        },function (error, response, status) {
+            reply({result: true, count: response.count});
+        });
+    }
+};
 
 
 
