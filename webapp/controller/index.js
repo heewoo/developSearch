@@ -14,12 +14,16 @@ exports.index = {
         if (request.auth.isAuthenticated) {
             return reply.redirect('/index');
         }
-        reply.view('index', {
+        reply.view('index' ,
+            {
             title: 'developSearch - Home ',
             message: 'Index - Hello World!',
             dirname: 'index',
-            description: 'develop search site'
-        });
+            description: 'develop search site',
+
+            },
+            {layout:'layout'}
+        );
     }
 };
 

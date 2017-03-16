@@ -106,8 +106,9 @@ server.register([Auth, Vision, Inert], function (err) {
         engines: {ejs: Ejs},
         relativeTo: __dirname + __viewPath,
         layoutPath: __dirname + __layouPath,
-        path: 'views/public',
-        layout: true
+        path: 'views/public'
+        // layout: 'layout'
+        // layout: true
     });
 
     server.route({

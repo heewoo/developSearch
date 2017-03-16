@@ -23,6 +23,7 @@ exports.rootHandler = [
 
     /* content*/
     {method: 'GET', path: '/content', config: Content.index},
+    {method: 'GET', path: '/contentAjax', config: Content.contentAjax},
 
     /* content List*/
     {method: 'GET', path: '/contentList', config: Content.contentList},

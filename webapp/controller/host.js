@@ -9,13 +9,16 @@ exports.index = {
         if (request.auth.isAuthenticated) {
             return reply.redirect('/index');
         }
-        reply.view('setting/hostAdd', {
+        reply.view('setting/hostAdd',
+            {
             title: 'hostAdd',
             message: 'Index - Hello World!',
             dirname: 'host',
             img_path: '../../public/img/',
             description: 'developSearch About'
-        });
+            },
+            {layout:'layout'}
+        );
     }
 };
 
