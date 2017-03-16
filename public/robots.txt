@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /mua-ban-xe/
 Host: developsearch.com
 
 Sitemap: http://developsearch.com/sitemap/sitemap-1.xml
@@ -27,7 +26,6 @@ Sitemap: http://developsearch.com/sitemap/sitemap-21.xml
 
 
 User-agent: *
-Disallow: /mua-ban-xe/
 Host: www.developsearch.com
 
 Sitemap: http://www.developsearch.com/sitemap-w/sitemap-1.xml
