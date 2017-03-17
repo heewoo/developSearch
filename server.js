@@ -75,7 +75,7 @@ const PageOption = {
         }
     },
     routes: {
-        include: ['/contentList','/hostList'],
+        include: ['/contentList','/hostList','/content'],
     }
 };
 
