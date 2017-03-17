@@ -100,7 +100,9 @@ exports.search = {
                 dirname: 'index',
                 description: 'develop search site'
 
-            });
+            },
+            {layout:'layout'}
+            );
         }, function (err) {
             console.trace(err.message);
         });
@@ -151,7 +153,9 @@ exports.searchPage = {
                     took: resp.took / 1000,
                     dirname: 'index',
                     description: resultHits[0].fields.content.toString().substring(0, 200)
-                });
+                },
+                    {layout:'layout'}
+                );
 
 
             } else {
@@ -165,7 +169,9 @@ exports.searchPage = {
                     took: resp.took / 1000,
                     dirname: 'index',
                     description: err_msg
-                });
+                },
+                    {layout:'layout'}
+                );
             }
         }, function (err) {
             console.trace(err.message);
@@ -226,7 +232,9 @@ exports.searchMore = {
                     took: resp.took / 1000,
                     dirname: 'index',
                     description: resultHits[0].fields.content.toString().substring(0, 200)
-                });
+                },
+                     {layout:'layout'}
+                 );
             } else {
                 var err_msg = "Enter keyword";
                  reply( {
@@ -238,7 +246,9 @@ exports.searchMore = {
                     took: resp.took / 1000,
                     dirname: 'index',
                     description: err_msg
-                });
+                },
+                     {layout:'layout'}
+                 );
             }
         }, function (err) {
             console.trace(err.message);
