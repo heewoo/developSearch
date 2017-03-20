@@ -16,9 +16,17 @@ exports.index = {
             return reply.redirect('/index');
         }
 
-        var tc = request.query.tc;
-        var pageNum = (request.query.page-1) * 10;
-        var limit = request.query.rowLimit;
+        var pageFrom;
+        var pageNum=0;
+        if(!request.query.p){
+            pageFrom = 0
+            pageNum  = 1
+        }else{
+            pageFrom = (request.query.p-1) * 10;
+            pageNum  = request.query.p
+        }
+
+        var limit = 30;
 
         client.search({
             index: 'nutch',
@@ -35,7 +43,7 @@ exports.index = {
                         content: {}
                     }
                 },
-                from: pageNum,
+                from: pageFrom,
                 size: limit,
                 explain: true
             }
@@ -55,12 +63,12 @@ exports.index = {
             return reply.view('content',
                 {
                     results:content,
-                    totalCount: tc,
                     title: keywordTitle,
                     message: 'Index - Hello World!',
                     dirname: 'content',
                     img_path: '../../public/img/',
-                    description: 'developSearch Content'
+                    description: 'developSearch Content',
+                    pageNum : pageNum
                 },
                 {layout:'layout'}
 

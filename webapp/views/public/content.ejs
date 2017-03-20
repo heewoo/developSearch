@@ -60,34 +60,7 @@
 <script>
     var pageTc = "";
     function pageInit(pageNum) {
-        $("#contentList").empty();
-        $.ajax({
-            type: "get",
-            url: '../contentList?tc='+pageTc+'&page=' + pageNum ,
-            success: function (data) {
-                if (pageTc < 1) {
-                    $("#noData").text("데이터가 없습니다");
-                } else {
-                    var result = data.results;
-                    var pageMeta = data.metadata;
-
-                        for(var i=0;i<result.length;i++) {
-                            var url  = result[i]._id;
-                            $("#contentList").append(""
-                                    + "<div class='col-lg-12' style='padding-bottom:30px;'>"
-                                    + "<h5><img src='http://www.google.com/s2/favicons?domain=" +result[i].fields.host + "'>" + result[i].fields.host + "</h5>"
-                                    + "<a onclick=getDsMove("+ "'"+url+"'"+")> <h3>" + result[i].fields.title + "</h3> </a> <p>"
-                                    + "<span content='searchContentList'" + i + ">" + result[i].fields.content.toString().substring(0, 200) + "</span> </p> </div>");
-                        }
-
-                        $("#paging").paging({
-                            current: pageNum,
-                            max: pageMeta.totalPages,
-                            itemCurrent: "active"
-                        });
-                }
-            }
-        });
+        location.href = "../content?p="+ pageNum;
     }
 
     function totalCnt() {
@@ -98,7 +71,6 @@
             success: function (data) {
                 if(data.result) {
                     pageTc =  data.count;
-                    pageInit(0);
                 }else{
                     return 0;
                 }
@@ -107,6 +79,13 @@
     }
 
     $(document).ready(function () {
-//        totalCnt()
+        totalCnt()
+
+        $("#paging").paging({
+            current: <%=pageNum %>,
+            max: pageTc/30,
+            itemCurrent: "active"
+        });
+
     });
 </script>
