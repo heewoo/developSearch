@@ -27,12 +27,15 @@ exports.index = {
             pageNum  = request.query.p
 
         }
-        pageCurrent = pageNum
-
+        pageCurrent = pageNum;
         var pageLimit = 10;
 
-        var pageMax = parseInt(pageNum / pageLimit) * pageLimit + pageLimit;
 
+
+        var pageMax = parseInt(pageNum / pageLimit) * pageLimit + pageLimit;
+        if(pageNum <= 10){
+            pageMax = 10;
+        }
         client.search({
             index: 'nutch',
             type: 'doc',
