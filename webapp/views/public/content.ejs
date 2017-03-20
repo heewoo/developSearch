@@ -30,7 +30,7 @@
         <h5>
             <img src=" http://www.google.com/s2/favicons?domain=<%= results[i].fields.host %>"> <%= results[i].fields.host %>
         </h5>
-        <a href="#"  onclick="getSiteMove('<%= results[i].fields.url %>')">
+        <a href="/searchPage?q=<%= results[i].fields.id %>" target="_blank">
             <h3><%= results[i].fields.title %> </h3>
         </a>
         <p>
@@ -49,10 +49,30 @@
 
 
 
+<!--pageInfo : {-->
+<!--pageNum: pageNum,-->
+<!--pageLimit: limit,-->
+<!--pageRange :pageRange,-->
+<!--limit : 10,-->
+
+
 <div class="light">
     <div class="paginate wrapper">
         <ul>
-            <li id="paging"></li>
+            <li id="paging">
+
+
+                <% for(var i = (pageInfo.pageMax)-(pageInfo.pageLimit-1); i <= (pageInfo.pageMax); i++) { %>
+                        <% if(pageInfo.pageCurrent != i){%>
+                            <a class="paging-item" href="/content?p=<%= i %>"> <%= i %> </a>
+                        <%}else{%>
+                            <a class="paging-item active" href="/content?p=<%= i %>"> <%= i %> </a>
+                        <%}%>
+                <%}%>
+
+
+
+            </li>
         </ul>
     </div>
 </div>
@@ -60,7 +80,7 @@
 <script>
     var pageTc = "";
     function pageInit(pageNum) {
-        location.href = "../content?p="+ pageNum;
+        location.href = "/content?p="+ pageNum;
     }
 
     function totalCnt() {
@@ -81,11 +101,11 @@
     $(document).ready(function () {
         totalCnt()
 
-        $("#paging").paging({
-            current: <%=pageNum %>,
-            max: pageTc/30,
-            itemCurrent: "active"
-        });
+//        $("#paging").paging({
+//            current: <%=pageInfo.pageNum %>,
+//            max: parseInt(pageTc/<%=pageInfo.pageLimit %>),
+//            itemCurrent: "active"
+//        });
 
     });
 </script>

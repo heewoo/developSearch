@@ -17,16 +17,21 @@ exports.index = {
         }
 
         var pageFrom;
+        var pageCurrent;
         var pageNum=0;
         if(!request.query.p){
-            pageFrom = 0
-            pageNum  = 1
+            pageFrom = 0;
+            pageNum  = 1;
         }else{
             pageFrom = (request.query.p-1) * 10;
             pageNum  = request.query.p
-        }
 
-        var limit = 30;
+        }
+        pageCurrent = pageNum
+
+        var pageLimit = 10;
+
+        var pageMax = parseInt(pageNum / pageLimit) * pageLimit + pageLimit;
 
         client.search({
             index: 'nutch',
@@ -44,7 +49,7 @@ exports.index = {
                     }
                 },
                 from: pageFrom,
-                size: limit,
+                size: pageLimit,
                 explain: true
             }
         }).then(function (resp) {
@@ -68,7 +73,13 @@ exports.index = {
                     dirname: 'content',
                     img_path: '../../public/img/',
                     description: 'developSearch Content',
-                    pageNum : pageNum
+                    pageInfo : {
+                        pageNum: parseInt(pageNum),
+                        pageLimit: parseInt(pageLimit),
+                        pageCurrent : pageCurrent,
+                        pageMax : parseInt(pageMax),
+                        limit : 10
+                    }
                 },
                 {layout:'layout'}
 
