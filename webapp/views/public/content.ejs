@@ -21,8 +21,6 @@
 </div>
 
 
-
-
 <div class="row marketing">
     <% if(results.length > 0){ %>
     <% for(var i = 0; i < results.length; i++) { %>
@@ -47,65 +45,31 @@
     <% } %>
 </div>
 
-
-
-<!--pageInfo : {-->
-<!--pageNum: pageNum,-->
-<!--pageLimit: limit,-->
-<!--pageRange :pageRange,-->
-<!--limit : 10,-->
-
-
 <div class="light">
     <div class="paginate wrapper">
         <ul>
             <li id="paging">
-
-
-                <% for(var i = (pageInfo.pageMax)-(pageInfo.pageLimit-1); i <= (pageInfo.pageMax); i++) { %>
-                        <% if(pageInfo.pageCurrent != i){%>
-                            <a class="paging-item" href="/content?p=<%= i %>"> <%= i %> </a>
-                        <%}else{%>
-                            <a class="paging-item active" href="/content?p=<%= i %>"> <%= i %> </a>
-                        <%}%>
+                <% if(results.length > 0){ %>
+                    <% if(pageInfo.pageMax > 10){%>
+                        <a class="paging-item" href="/content?p=1"> first </a>
+                        <a class="paging-item" href="/content?p=<%= (pageInfo.pageMax)-(pageInfo.pageLimit) %>"> prev </a>
+                    <%}%>
+                    <% for(var i = (pageInfo.pageMax)-(pageInfo.pageLimit-1); i <= (pageInfo.pageMax); i++) { %>
+                            <% if(pageInfo.pageCurrent != i){%>
+                                <a class="paging-item" href="/content?p=<%= i %>"> <%= i %> </a>
+                            <%}else{%>
+                                <a class="paging-item active" href="/content?p=<%= i %>"> <%= i %> </a>
+                            <%}%>
+                            <%if(pageInfo.pageTotal == i ){ break;}%>
+                    <%}%>
+                    <%if(pageInfo.pageTotal != pageInfo.pageCurrent){%>
+                        <a class="paging-item" href="/content?p=<%=(pageInfo.pageMax)+1 %>"> next </a>
+                        <a class="paging-item" href="/content?p=<%=(pageInfo.pageTotal) %>"> last </a>
+                    <%}%>
+                <%}else{%>
+                        <a class="paging-item active" href="/content?p=1"> Content Move </a>
                 <%}%>
-
-
-
             </li>
         </ul>
     </div>
 </div>
-
-<script>
-    var pageTc = "";
-    function pageInit(pageNum) {
-        location.href = "/content?p="+ pageNum;
-    }
-
-    function totalCnt() {
-        $.ajax({
-            type: "GET",
-            url: '../totalCnt',
-            async: false,
-            success: function (data) {
-                if(data.result) {
-                    pageTc =  data.count;
-                }else{
-                    return 0;
-                }
-            }
-        });
-    }
-
-    $(document).ready(function () {
-        totalCnt()
-
-//        $("#paging").paging({
-//            current: <%=pageInfo.pageNum %>,
-//            max: parseInt(pageTc/<%=pageInfo.pageLimit %>),
-//            itemCurrent: "active"
-//        });
-
-    });
-</script>

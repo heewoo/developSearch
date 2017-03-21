@@ -16,79 +16,98 @@ exports.index = {
             return reply.redirect('/index');
         }
 
+
+        var reqPage = request.query.p;
+
+        var pageLimit = 10;
         var pageFrom;
         var pageCurrent;
-        var pageNum=0;
-        if(!request.query.p){
+        var pageNum;
+        var pageTotal;
+        var pageMax;
+
+        if (!reqPage || reqPage == 0 || isNaN(reqPage)) {
             pageFrom = 0;
-            pageNum  = 1;
-        }else{
-            pageFrom = (request.query.p-1) * 10;
-            pageNum  = request.query.p
-
+            pageNum = 1;
+        } else {
+            pageFrom = (reqPage - 1) * 10;
+            pageNum = reqPage
         }
+
+
         pageCurrent = pageNum;
-        var pageLimit = 10;
+        pageMax = parseInt(pageNum / pageLimit) * pageLimit + pageLimit;
 
-
-
-        var pageMax = parseInt(pageNum / pageLimit) * pageLimit + pageLimit;
-        if(pageNum <= 10){
+        if (pageNum <= 10) {
             pageMax = 10;
         }
-        client.search({
-            index: 'nutch',
-            type: 'doc',
-            body: {
-                fields: ["host", "id", "title", "url", "content"],
-                sort: {
-                    _score: {
-                        order: "desc"
-                    }
-                },
-                highlight: {
-                    fields: {
-                        content: {}
-                    }
-                },
-                from: pageFrom,
-                size: pageLimit,
-                explain: true
-            }
-        }).then(function (resp) {
-            const resultHits = resp.hits.hits;
-            const content = new Array();
 
-            for (i in resultHits) {
-                var t = resultHits[i].fields.url.toString().search("/feed");
-                if (t) {
-                    resultHits[i].fields.url = resultHits[i].fields.url.toString().replace('/feed', '');
+        if (pageNum % pageLimit == 0) {
+            if (pageNum > 10) {
+                pageMax = pageMax - pageLimit;
+            }
+        }
+
+        client.count({
+            index: 'nutch'
+        }, function (error, response) {
+
+            pageTotal = response.count;
+
+            client.search({
+                index: 'nutch',
+                type: 'doc',
+                body: {
+                    fields: ["host", "id", "title", "url", "content"],
+                    sort: {
+                        _score: {
+                            order: "desc"
+                        }
+                    },
+                    highlight: {
+                        fields: {
+                            content: {}
+                        }
+                    },
+                    from: pageFrom,
+                    size: pageLimit,
+                    explain: true
                 }
-                content.push(resultHits[i]);
-            }
+            }).then(function (resp) {
+                const resultHits = resp.hits.hits;
+                const content = new Array();
 
-
-            return reply.view('content',
-                {
-                    results:content,
-                    title: keywordTitle,
-                    message: 'Index - Hello World!',
-                    dirname: 'content',
-                    img_path: '../../public/img/',
-                    description: 'developSearch Content',
-                    pageInfo : {
-                        pageNum: parseInt(pageNum),
-                        pageLimit: parseInt(pageLimit),
-                        pageCurrent : pageCurrent,
-                        pageMax : parseInt(pageMax),
-                        limit : 10
+                for (i in resultHits) {
+                    var t = resultHits[i].fields.url.toString().search("/feed");
+                    if (t) {
+                        resultHits[i].fields.url = resultHits[i].fields.url.toString().replace('/feed', '');
                     }
-                },
-                {layout:'layout'}
+                    content.push(resultHits[i]);
+                }
 
-            );
-        }, function (err) {
-            console.trace(err.message);
+
+                return reply.view('content',
+                    {
+                        results: content,
+                        title: keywordTitle,
+                        message: 'Index - Hello World!',
+                        dirname: 'content',
+                        img_path: '../../public/img/',
+                        description: 'developSearch Content',
+                        pageInfo: {
+                            pageNum: parseInt(pageNum),
+                            pageLimit: parseInt(pageLimit),
+                            pageCurrent: parseInt(pageCurrent),
+                            pageMax: parseInt(pageMax),
+                            pageTotal: parseInt(pageTotal/pageLimit),
+                            limit: 10
+                        }
+                    },
+                    {layout: 'layout'}
+                );
+            }, function (err) {
+                console.trace(err.message);
+            });
         });
     }
 
@@ -105,7 +124,7 @@ exports.contentList = {
         }
 
         var tc = request.query.tc;
-        var pageNum = (request.query.page-1) * 10;
+        var pageNum = (request.query.page - 1) * 10;
         var limit = request.query.rowLimit;
 
         client.search({
@@ -139,14 +158,12 @@ exports.contentList = {
                 content.push(resultHits[i]);
             }
 
-            return reply({results:content, totalCount: tc});
+            return reply({results: content, totalCount: tc});
         }, function (err) {
             console.trace(err.message);
         });
     }
 };
-
-
 
 
 exports.contentAjax = {
@@ -160,7 +177,7 @@ exports.contentAjax = {
         }
 
         var tc = request.query.tc;
-        var pageNum = (request.query.page-1) * 10;
+        var pageNum = (request.query.page - 1) * 10;
         var limit = request.query.rowLimit;
 
         client.search({
@@ -195,8 +212,8 @@ exports.contentAjax = {
             }
 
             return reply.view('ajax/contentAjax',
-                {results:content, totalCount: tc},
-                {layout:'nolayout'}
+                {results: content, totalCount: tc},
+                {layout: 'nolayout'}
             );
         }, function (err) {
             console.trace(err.message);

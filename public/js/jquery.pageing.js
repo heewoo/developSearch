@@ -11,7 +11,7 @@
         item:'a',next:'next',prev:'prev',format:'{0}',
         itemClass:'paging-item',sideClass:'paging-side',className:'jquery-paging',
         itemCurrent:'selected',length:10,max:1,current:1,append:false
-        ,href:'/content?p={0}',event:true,first:'first',last:'last'
+        ,href:'javascript:pageInit({0})',event:true,first:'first',last:'last'
     },format=function(str){
         var arg=arguments;
         return str.replace(/\{(\d+)}/g,function(m,d){
