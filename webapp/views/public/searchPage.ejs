@@ -24,10 +24,14 @@
         });
     }
     $("document").ready(function(){
+
+        <%if(!errChk){%>
         var mSite = "<%= contents[0].fields.title %>";
         if(mSite != "") {
             moreSite(mSite);
         }
+
+        <%}%>
     });
 </script>
 

@@ -152,7 +152,8 @@ exports.searchPage = {
                     total: resp.hits.total,
                     took: resp.took / 1000,
                     dirname: 'index',
-                    description: resultHits[0].fields.content.toString().substring(0, 200)
+                    description: resultHits[0].fields.content.toString().substring(0, 200),
+                    errChk : false
                 },
                     {layout:'layout'}
                 );
@@ -168,7 +169,8 @@ exports.searchPage = {
                     total: resp.hits.total,
                     took: resp.took / 1000,
                     dirname: 'index',
-                    description: err_msg
+                    description: err_msg,
+                    errChk : true
                 },
                     {layout:'layout'}
                 );
