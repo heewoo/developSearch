@@ -1,5 +1,4 @@
 User-agent: *
-Host: developsearch.com
 
 Sitemap: http://developsearch.com/sitemap/sitemap-1.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-2.xml
@@ -24,9 +23,6 @@ Sitemap: http://developsearch.com/sitemap/sitemap-19.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-20.xml
 Sitemap: http://developsearch.com/sitemap/sitemap-21.xml
 
-
-User-agent: *
-Host: www.developsearch.com
 
 Sitemap: http://www.developsearch.com/sitemap-w/sitemap-1.xml
 Sitemap: http://www.developsearch.com/sitemap-w/sitemap-2.xml
