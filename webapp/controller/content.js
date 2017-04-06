@@ -89,7 +89,7 @@ exports.index = {
                 return reply.view('content',
                     {
                         results: content,
-                        title: keywordTitle,
+                        title: keywordTitle + " Page " + pageNum,
                         message: 'Index - Hello World!',
                         dirname: 'content',
                         img_path: '../../public/img/',
